@@ -57,14 +57,18 @@ Here is how to visualize this approach:
 
 
 
-# Training:
+### Training:
 data storage:
 EFS: too slow. go with EBS
 
+### Cost (time and money)
 
-instance:       batch size      price               time/epoch
-p3.2xlarge               16     $3.06 per Hour      2:50 hr
-p3.2xlarge              160     $3.06 per Hour      2:50 hr
-p2.xlarge                16     $0.9 per Hour       ?
-p2.xlarge               160     $0.9 per Hour       ?
 
+| instance       |batch size      |price           |time/epoch (hr) | train layers|
+| ------------- |:-------------:| :---------------:| :-------------:|------------:|
+|p3.2xlarge     |         16   |  $3.06 per Hour   |   3            |    5:       | 
+|p3.2xlarge     |        160   |  $3.06 per Hour   |   3            |    5:       | 
+|p2.xlarge      |         16   |  $0.9 per Hour    |   6            |    5:       | 
+|p2.xlarge      |         16   |  $0.9 per Hour    |   4            |    12:      |     
+|p2.xlarge      |         16   |  $0.9 per Hour    |   3            |    18:      |     
+|p2.xlarge      |         16   |  $0.9 per Hour    |   2.75         |    None     |     
