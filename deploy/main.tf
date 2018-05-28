@@ -64,7 +64,7 @@ resource "aws_instance" "notebook" {
             "sudo mv /home/ubuntu/mycert.pem  /etc/mycert.pem",
             "sudo mv /home/ubuntu/mykey.key  /etc/mykey.key",
             "export PATH=/home/ubuntu/anaconda3/bin:$PATH",
-            "nohup jupyter notebook &"
+            "cd /data && nohup jupyter notebook &"
         ]
 
         connection {
@@ -139,24 +139,14 @@ data "template_file" "instance_init" {
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "terraform-jupyter-state"
+  bucket = "lfcunha-terraform"
 
   versioning {
     enabled = true
   }
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false #true  # set to false to be able to destoy this infrastructure
   }
 }
 
-
-resource "null_resource" "export_rendered_template" {
-  provisioner "local-exec" {
-    command = "cat > user_data_output.json <<EOL\n${data.template_file.instance_init.rendered}\nEOL"
-  }
-}
-
-output "public_ip" {
-  value = "${aws_instance.notebook.public_ip}"
-}
