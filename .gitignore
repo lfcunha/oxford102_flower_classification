@@ -2,3 +2,6 @@
 *.tfstate
 *.tfstate.backup
 *.zip
+.idea
+.idea/*
+data/

@@ -1,3 +1,38 @@
+# Terraform syntax
+```bash
+
+terraform init # do this to install new providers
+
+terraform state list  # list resources
+
+terraform state show aws_instance.notebook  # describe a resource
+
+terraform plan
+
+terraform apply
+
+terraform graph  # can visualize output with graphviz online
+
+terraform destroy
+```
+
+### Notes:
+Variables Must be one of "string", "list", or "map".
+
+If no default provided, it will prompt when running "terraform apply"
+
+A value can be passed in the command:
+```bash
+terraform plan -var server_port="8080"
+```
+
+Use output to print resource properties, instead of having to use "state show ..."; After, you can get it again with:
+```bash
+terraform output public_ip
+```
+
+
+
 # Training
 
 
