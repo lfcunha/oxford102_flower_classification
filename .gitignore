@@ -7,3 +7,4 @@
 data/
 user_data_output.json
 user_data_init_script_output.json
+.idea/modules.xml
