@@ -4,6 +4,12 @@ variable "aws_region" {
     default = "us-east-1"
 }
 
+variable "availability_zone" {
+  description = "availability zone"
+  type = "string"
+  default = "us-east-1f"
+}
+
 variable "aws_amis" {
     description = "AMI to use"
     type = "map"
@@ -45,19 +51,16 @@ variable "subnet_id" {
 variable "vpc_id" {
     description = "vpc id"
     type = "string"
-    default = "vpc-34fa8c4d"
 }
 
 variable "volume_1_id" {
     description = "id of volume with flower data"
     type = "string"
-    default = "vol-0b156a86ff2c6f1a2"
 }
 
 variable "hashed_notebook_password" {
     description = "hased_notebook_password for 'mydataflowernotebookpassword'"
     type = "string"
-    default = "sha1:adc8323b5ab9:9865c35c8573307ec44b8eb98256e06dc57320ee"
 }
 
 variable "user" {
@@ -71,6 +74,35 @@ variable "key_path" {
   type = "string"
   default = "/Users/luiscunha/.ssh/ipython.pem"
 }
+
+variable "instance_iam_role_name" {
+  description = "instance iam role name"
+  type = "string"
+  default = "LuisC"
+}
+
+variable "instance_externally_accessible" {
+  description = "create public ip?"
+  type = "string"
+  default = "true"
+}
+
+variable "instance_key_name" {
+  description = "ssh key name"
+  type = "string"
+  default = "ipython"
+}
+
+variable "instance_type" {
+  description = "instance type"
+  type = "string"
+  default = "t2.medium"
+}
+
+
+
+
+
 
 
 

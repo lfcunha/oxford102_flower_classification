@@ -1,35 +1,19 @@
-# store tfstate file in s3 instead of locally (https://www.terraform.io/docs/backends/types/s3.html)
-terraform {
-  backend "s3" {
-    bucket = "lfcunha-terraform"
-    key    = "jupyter-notebook-flower_comp/global/.tfstate"
-    region = "us-east-1"
-  }
-}
-
-
-provider "aws" {
-  region = "${var.aws_region}"
-}
-
-
 resource "aws_instance" "notebook" {
-  ami           = "${lookup(var.aws_amis, var.aws_region)}"
-  instance_type = "t2.medium"
-  availability_zone = "us-east-1f"
-  key_name = "ipython"
+  ami = "${lookup(var.aws_amis, var.aws_region)}"
+  instance_type = "${var.instance_type}"
+  availability_zone = "${var.availability_zone}"
+  key_name = "${var.instance_key_name}"
   subnet_id= "${var.subnet_id}"
   #security_groups = [ "${var.security_groups}" ]
-  user_data = "${element(data.template_file.instance_init.*.rendered, 0)}"
   vpc_security_group_ids = ["${aws_security_group.instance.id}"]
-
-  associate_public_ip_address = true
+  iam_instance_profile = "${var.instance_iam_role_name}"
+  associate_public_ip_address = "${var.instance_externally_accessible}"
+  user_data = "${element(data.template_file.instance_init.*.rendered, 0)}"
 
 //  this requires it to also be set in every dependecy. Also, will it not detach the volume first? if no, it's a problem
 //  lifecycle {
 //    create_before_destroy = true
 //  }
-
 
 
   # upload certificate for jupyter notebook ssl
@@ -61,10 +45,10 @@ resource "aws_instance" "notebook" {
 
   provisioner "remote-exec" {
         inline = [
-            "sudo mv /home/ubuntu/mycert.pem  /etc/mycert.pem",
-            "sudo mv /home/ubuntu/mykey.key  /etc/mykey.key",
+            #"sudo mv /home/ubuntu/mycert.pem  /etc/mycert.pem",
+            #"sudo mv /home/ubuntu/mykey.key  /etc/mykey.key",
             "export PATH=/home/ubuntu/anaconda3/bin:$PATH",
-            "cd /data && nohup jupyter notebook &"
+            "sudo mount -a"
         ]
 
         connection {
@@ -101,52 +85,49 @@ resource "aws_volume_attachment" "ebs_att" {
 
 # Create security group in existing VPC
 resource "aws_security_group" "instance" {
-  name = "terraform-jupyter-instance"
-  description = "Allow notebook and ssh inbound traffic"
-  vpc_id      = "${var.vpc_id}"   #"${aws_vpc.main.id}"
-
-  ingress {
-    from_port   = 8888
-    to_port     = 8888
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-    ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["24.90.154.168/32"]
-  }
-
-  egress {
-      from_port = 0
-      to_port = 0
-      protocol = "-1"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
+  name = "instance"
 }
+
+resource "aws_security_group_rule" "allow_jupyter_inbound" {
+  type              = "ingress"
+  security_group_id = "${aws_security_group.instance.id}"
+
+  from_port   = 8888
+  to_port     = 8888
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "allow_ssh_inbound" {
+  type              = "ingress"
+  security_group_id = "${aws_security_group.instance.id}"
+
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = ["24.90.154.168/32"]
+}
+
+resource "aws_security_group_rule" "allow_all_outbound" {
+  type              = "egress"
+  security_group_id = "${aws_security_group.instance.id}"
+
+  from_port   = 0
+  to_port     = 0
+  protocol    = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
 
 #template files to set EC2 user data
 data "template_file" "instance_init" {
-  template = "${file("init.tpl")}"
+  template = "${file("${path.module}/user-data.tpl")}"
   vars {
     ebs_device_name = "${var.ebs_device_name}"
     ebs_mount_point = "${var.ebs_mount_point}"
     efs_host = "${var.efs_host}"
     efs_mount_point = "${var.efs_mount_point}"
     hashed_notebook_password = "${var.hashed_notebook_password}"
-  }
-}
-
-resource "aws_s3_bucket" "terraform_state" {
-  bucket = "lfcunha-terraform"
-
-  versioning {
-    enabled = true
-  }
-
-  lifecycle {
-    prevent_destroy = false #true  # set to false to be able to destoy this infrastructure
   }
 }
 

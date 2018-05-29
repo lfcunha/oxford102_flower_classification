@@ -17,17 +17,20 @@ else
   sudo mkdir ${ebs_mount_point}
   echo "mounting ebs"
   sudo echo "${ebs_device_name}       ${ebs_mount_point}   ext4    defaults,nofail  0 2" >> /etc/fstab
-  sudo mount -a
+  sleep 2
 fi
 
+export PATH=/home/ubuntu/anaconda3/bin:$PATH
+sudo mount ${ebs_device_name} ${ebs_mount_point}
+sudo mount -a
 
 #sudo echo "mounting efs"
 #sudo mkdir /{efs_mount_point}
 #sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2  ${efs_host}:/ ${efs_mount_point}
 
 
-#sudo echo "Hello, World" > /var/index.html
-#nohup busybox httpd -f -p 8080 &
+sudo curl -L https://s3.amazonaws.com/lfcunha-notebook-cert/mycert.pem -o /etc/mycert.pem
+sudo curl -L https://s3.amazonaws.com/lfcunha-notebook-cert/mykey.key -o /etc/mykey.key
 
 
 # Jupyter notebook configuration file
@@ -52,11 +55,13 @@ c.NotebookApp.kernel_spec_manager_class = 'environment_kernels.EnvironmentKernel
 c.NotebookApp.iopub_data_rate_limit = 10000000000
 c.NotebookApp.open_browser = False
 c.NotebookApp.ip = '*'
-c.NotebookApp.certfile = '/etc/mycert.pem'
-c.NotebookApp.keyfile = '/etc/mykey.key'
+#c.NotebookApp.certfile = '/etc/mycert.pem'
+#c.NotebookApp.keyfile = '/etc/mykey.key'
 c.NotebookApp.password = '${hashed_notebook_password}'
 c.NotebookApp.port = 8888
 EOT
 
 # start the jupyter notebook
-#jupyter notebook
+jupyter notebook
+#cd /data
+#nohup jupyter notebook &
