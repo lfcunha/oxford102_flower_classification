@@ -10,3 +10,9 @@ variable "vpc_id" {
     type = "string"
     default = "vpc-34fa8c4d"
 }
+
+variable "subnet_id" {
+    description = "subnet id"
+    type = "string"
+    default = "subnet-f086f0fc"
+}

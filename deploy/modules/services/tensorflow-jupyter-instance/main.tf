@@ -43,22 +43,22 @@ resource "aws_instance" "notebook" {
     }
   }
 
-  provisioner "remote-exec" {
-        inline = [
-            #"sudo mv /home/ubuntu/mycert.pem  /etc/mycert.pem",
-            #"sudo mv /home/ubuntu/mykey.key  /etc/mykey.key",
-            "export PATH=/home/ubuntu/anaconda3/bin:$PATH",
-            "sudo mount -a"
-        ]
-
-        connection {
-        user = "${var.user}"
-        type = "ssh"
-        host = "${self.public_ip}"
-        private_key = "${file(var.key_path)}"
-        agent = false
-    }
-    }
+//  provisioner "remote-exec" {
+//        inline = [
+//            #"sudo mv /home/ubuntu/mycert.pem  /etc/mycert.pem",
+//            #"sudo mv /home/ubuntu/mykey.key  /etc/mykey.key",
+//            "export PATH=/home/ubuntu/anaconda3/bin:$PATH",
+//            "sudo mount -a"
+//        ]
+//
+//        connection {
+//        user = "${var.user}"
+//        type = "ssh"
+//        host = "${self.public_ip}"
+//        private_key = "${file(var.key_path)}"
+//        agent = false
+//    }
+//    }
 //
 //    provisioner "remote-exec" {
 //        scripts = [
@@ -80,12 +80,13 @@ resource "aws_volume_attachment" "ebs_att" {
   instance_id = "${aws_instance.notebook.id}"
 
   skip_destroy = true
-  force_detach = true
+  #force_detach = true
 }
 
 # Create security group in existing VPC
 resource "aws_security_group" "instance" {
   name = "instance"
+  vpc_id = "${var.vpc_id}"
 }
 
 resource "aws_security_group_rule" "allow_jupyter_inbound" {

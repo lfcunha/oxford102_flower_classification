@@ -19,11 +19,10 @@ module "dataanalysis_instance" {
 
 
   vpc_id = "${var.vpc_id}"
+  subnet_id = "${var.subnet_id}"
   volume_1_id = "vol-0b156a86ff2c6f1a2"
   hashed_notebook_password = "sha1:adc8323b5ab9:9865c35c8573307ec44b8eb98256e06dc57320ee"
-
 }
-
 
 # expose an additional port in the security group defined in the tensorflow-jupyter-instance module
 resource "aws_security_group_rule" "allow_testing_inbound" {

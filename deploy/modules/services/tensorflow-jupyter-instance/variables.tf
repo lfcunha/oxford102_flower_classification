@@ -45,7 +45,6 @@ variable "ebs_mount_point" {
 variable "subnet_id" {
     description = "subnet id"
     type = "string"
-    default = "subnet-f086f0fc"
 }
 
 variable "vpc_id" {

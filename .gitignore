@@ -1,9 +1,10 @@
 .terraform
 *.tfstate
 *.tfstate.backup
+.git
 *.zip
 .idea
 .idea/*
 data/
-user_data_output.json
-user_data_init_script_output.json
+user_data_output.*
+user_data_init_script_output.*
