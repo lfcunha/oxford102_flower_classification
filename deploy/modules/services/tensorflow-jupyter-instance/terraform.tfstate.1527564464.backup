@@ -1,0 +1,225 @@
+{
+    "version": 3,
+    "terraform_version": "0.11.7",
+    "serial": 40,
+    "lineage": "8a83d452-2c10-7476-24fd-abc8b4bf8e04",
+    "modules": [
+        {
+            "path": [
+                "root"
+            ],
+            "outputs": {
+                "public_ip": {
+                    "sensitive": false,
+                    "type": "string",
+                    "value": "34.238.194.24"
+                }
+            },
+            "resources": {
+                "aws_instance.notebook": {
+                    "type": "aws_instance",
+                    "depends_on": [
+                        "aws_security_group.instance",
+                        "data.template_file.instance_init.*"
+                    ],
+                    "primary": {
+                        "id": "i-09deb0fd69f42e00e",
+                        "attributes": {
+                            "ami": "ami-dff741a0",
+                            "associate_public_ip_address": "true",
+                            "availability_zone": "us-east-1f",
+                            "credit_specification.#": "1",
+                            "credit_specification.0.cpu_credits": "standard",
+                            "disable_api_termination": "false",
+                            "ebs_block_device.#": "0",
+                            "ebs_optimized": "false",
+                            "ephemeral_block_device.#": "0",
+                            "get_password_data": "false",
+                            "iam_instance_profile": "",
+                            "id": "i-09deb0fd69f42e00e",
+                            "instance_state": "running",
+                            "instance_type": "t2.medium",
+                            "ipv6_addresses.#": "0",
+                            "key_name": "ipython",
+                            "monitoring": "false",
+                            "network_interface.#": "0",
+                            "network_interface_id": "eni-db10607e",
+                            "password_data": "",
+                            "placement_group": "",
+                            "primary_network_interface_id": "eni-db10607e",
+                            "private_dns": "ip-10-0-0-11.ec2.internal",
+                            "private_ip": "10.0.0.11",
+                            "public_dns": "ec2-34-238-194-24.compute-1.amazonaws.com",
+                            "public_ip": "34.238.194.24",
+                            "root_block_device.#": "1",
+                            "root_block_device.0.delete_on_termination": "true",
+                            "root_block_device.0.iops": "225",
+                            "root_block_device.0.volume_id": "vol-076d70e4c58edca69",
+                            "root_block_device.0.volume_size": "75",
+                            "root_block_device.0.volume_type": "gp2",
+                            "security_groups.#": "0",
+                            "source_dest_check": "true",
+                            "subnet_id": "subnet-f086f0fc",
+                            "tags.%": "1",
+                            "tags.Name": "deeplearning-cpu-flowercompetition",
+                            "tenancy": "default",
+                            "user_data": "f4679d28dfc533d3bd5e773f40ef3246508d79c4",
+                            "volume_tags.%": "0",
+                            "vpc_security_group_ids.#": "1",
+                            "vpc_security_group_ids.3446073140": "sg-90f1bad8"
+                        },
+                        "meta": {
+                            "e2bfb730-ecaa-11e6-8f88-34363bc7c4c0": {
+                                "create": 600000000000,
+                                "delete": 1200000000000,
+                                "update": 600000000000
+                            },
+                            "schema_version": "1"
+                        },
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "aws_s3_bucket.terraform_state": {
+                    "type": "aws_s3_bucket",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "lfcunha-terraform",
+                        "attributes": {
+                            "acceleration_status": "",
+                            "acl": "private",
+                            "arn": "arn:aws:s3:::lfcunha-terraform",
+                            "bucket": "lfcunha-terraform",
+                            "bucket_domain_name": "lfcunha-terraform.s3.amazonaws.com",
+                            "force_destroy": "false",
+                            "hosted_zone_id": "Z3AQBSTGFYJSTF",
+                            "id": "lfcunha-terraform",
+                            "logging.#": "0",
+                            "region": "us-east-1",
+                            "replication_configuration.#": "0",
+                            "request_payer": "BucketOwner",
+                            "server_side_encryption_configuration.#": "0",
+                            "tags.%": "0",
+                            "versioning.#": "1",
+                            "versioning.0.enabled": "true",
+                            "versioning.0.mfa_delete": "false",
+                            "website.#": "0"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "aws_security_group.instance": {
+                    "type": "aws_security_group",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "sg-90f1bad8",
+                        "attributes": {
+                            "arn": "arn:aws:ec2:us-east-1:723597089077:security-group/sg-90f1bad8",
+                            "description": "Allow notebook and ssh inbound traffic",
+                            "egress.#": "0",
+                            "id": "sg-90f1bad8",
+                            "ingress.#": "2",
+                            "ingress.1569135532.cidr_blocks.#": "1",
+                            "ingress.1569135532.cidr_blocks.0": "24.90.154.168/32",
+                            "ingress.1569135532.description": "",
+                            "ingress.1569135532.from_port": "22",
+                            "ingress.1569135532.ipv6_cidr_blocks.#": "0",
+                            "ingress.1569135532.protocol": "tcp",
+                            "ingress.1569135532.security_groups.#": "0",
+                            "ingress.1569135532.self": "false",
+                            "ingress.1569135532.to_port": "22",
+                            "ingress.433339597.cidr_blocks.#": "1",
+                            "ingress.433339597.cidr_blocks.0": "0.0.0.0/0",
+                            "ingress.433339597.description": "",
+                            "ingress.433339597.from_port": "8888",
+                            "ingress.433339597.ipv6_cidr_blocks.#": "0",
+                            "ingress.433339597.protocol": "tcp",
+                            "ingress.433339597.security_groups.#": "0",
+                            "ingress.433339597.self": "false",
+                            "ingress.433339597.to_port": "8888",
+                            "name": "terraform-jupyter-instance",
+                            "owner_id": "723597089077",
+                            "revoke_rules_on_delete": "false",
+                            "tags.%": "0",
+                            "vpc_id": "vpc-34fa8c4d"
+                        },
+                        "meta": {
+                            "e2bfb730-ecaa-11e6-8f88-34363bc7c4c0": {
+                                "create": 600000000000,
+                                "delete": 600000000000
+                            },
+                            "schema_version": "1"
+                        },
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "aws_volume_attachment.ebs_att": {
+                    "type": "aws_volume_attachment",
+                    "depends_on": [
+                        "aws_instance.notebook"
+                    ],
+                    "primary": {
+                        "id": "vai-408629726",
+                        "attributes": {
+                            "device_name": "/dev/xvdf",
+                            "force_detach": "true",
+                            "id": "vai-408629726",
+                            "instance_id": "i-09deb0fd69f42e00e",
+                            "skip_destroy": "true",
+                            "volume_id": "vol-0b156a86ff2c6f1a2"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.aws"
+                },
+                "data.template_file.instance_init": {
+                    "type": "template_file",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "62ec92defe3927c05999b80b0472ac1941f338c9df70da49dbad74107daf81fd",
+                        "attributes": {
+                            "id": "62ec92defe3927c05999b80b0472ac1941f338c9df70da49dbad74107daf81fd",
+                            "rendered": "#!/bin/bash -v\n\n#sudo apt-get install -y expect\n\n# create fs if needed\n# if output matches below, filesystem has not been initialized\nfile -s /dev/xvdf | grep -q '/dev/xvdf: data' \u0026\u003e /dev/null\n\nRESULT=$?\n\nif [ $RESULT -eq 0 ]; then\n  echo creating fs\n  # TODO: initialize filesystem.\nelse\n  echo fs exists\n  echo \"creating data dir\"\n  sudo mkdir /data\n  echo \"mounting ebs\"\n  sudo echo \"/dev/xvdf       /data   ext4    defaults,nofail  0 2\" \u003e\u003e /etc/fstab\n  sleep 5\n  sudo mount /dev/xvdf /data\n  sudo mount -a\nfi\n\n\n#sudo echo \"mounting efs\"\n#sudo mkdir /{efs_mount_point}\n#sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2  10.0.0.71:/ /efs\n\n\n#sudo echo \"Hello, World\" \u003e /var/index.html\n#nohup busybox httpd -f -p 8080 \u0026\n\n\n# Jupyter notebook configuration file\nsudo cat \u003c\u003cEOT \u003e\u003e /home/ubuntu/.jupyter/jupyter_notebook_config.py\n#------------------------------------------------------------------------------\n# KernelSpecManager(LoggingConfigurable) configuration\n#------------------------------------------------------------------------------\n\n## If there is no Python kernelspec registered and the IPython kernel is\n#  available, ensure it is added to the spec list.\n#c.KernelSpecManager.ensure_native_kernel = True\n\n## The kernel spec class.  This is configurable to allow subclassing of the\n#  KernelSpecManager for customized behavior.\n#c.KernelSpecManager.kernel_spec_class = 'jupyter_client.kernelspec.KernelSpec'\n\n## Whitelist of allowed kernel names.\n#\n#  By default, all installed kernels are allowed.\n#c.KernelSpecManager.whitelist = set()\nc.NotebookApp.kernel_spec_manager_class = 'environment_kernels.EnvironmentKernelSpecManager'\nc.NotebookApp.iopub_data_rate_limit = 10000000000\nc.NotebookApp.open_browser = False\nc.NotebookApp.ip = '*'\nc.NotebookApp.certfile = '/etc/mycert.pem'\nc.NotebookApp.keyfile = '/etc/mykey.key'\nc.NotebookApp.password = 'sha1:adc8323b5ab9:9865c35c8573307ec44b8eb98256e06dc57320ee'\nc.NotebookApp.port = 8888\nEOT\n\n# start the jupyter notebook\n#jupyter notebook",
+                            "template": "#!/bin/bash -v\n\n#sudo apt-get install -y expect\n\n# create fs if needed\n# if output matches below, filesystem has not been initialized\nfile -s ${ebs_device_name} | grep -q '${ebs_device_name}: data' \u0026\u003e /dev/null\n\nRESULT=$?\n\nif [ $RESULT -eq 0 ]; then\n  echo creating fs\n  # TODO: initialize filesystem.\nelse\n  echo fs exists\n  echo \"creating data dir\"\n  sudo mkdir ${ebs_mount_point}\n  echo \"mounting ebs\"\n  sudo echo \"${ebs_device_name}       ${ebs_mount_point}   ext4    defaults,nofail  0 2\" \u003e\u003e /etc/fstab\n  sleep 5\n  sudo mount ${ebs_device_name} ${ebs_mount_point}\n  sudo mount -a\nfi\n\n\n#sudo echo \"mounting efs\"\n#sudo mkdir /{efs_mount_point}\n#sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2  ${efs_host}:/ ${efs_mount_point}\n\n\n#sudo echo \"Hello, World\" \u003e /var/index.html\n#nohup busybox httpd -f -p 8080 \u0026\n\n\n# Jupyter notebook configuration file\nsudo cat \u003c\u003cEOT \u003e\u003e /home/ubuntu/.jupyter/jupyter_notebook_config.py\n#------------------------------------------------------------------------------\n# KernelSpecManager(LoggingConfigurable) configuration\n#------------------------------------------------------------------------------\n\n## If there is no Python kernelspec registered and the IPython kernel is\n#  available, ensure it is added to the spec list.\n#c.KernelSpecManager.ensure_native_kernel = True\n\n## The kernel spec class.  This is configurable to allow subclassing of the\n#  KernelSpecManager for customized behavior.\n#c.KernelSpecManager.kernel_spec_class = 'jupyter_client.kernelspec.KernelSpec'\n\n## Whitelist of allowed kernel names.\n#\n#  By default, all installed kernels are allowed.\n#c.KernelSpecManager.whitelist = set()\nc.NotebookApp.kernel_spec_manager_class = 'environment_kernels.EnvironmentKernelSpecManager'\nc.NotebookApp.iopub_data_rate_limit = 10000000000\nc.NotebookApp.open_browser = False\nc.NotebookApp.ip = '*'\nc.NotebookApp.certfile = '/etc/mycert.pem'\nc.NotebookApp.keyfile = '/etc/mykey.key'\nc.NotebookApp.password = '${hashed_notebook_password}'\nc.NotebookApp.port = 8888\nEOT\n\n# start the jupyter notebook\n#jupyter notebook",
+                            "vars.%": "5",
+                            "vars.ebs_device_name": "/dev/xvdf",
+                            "vars.ebs_mount_point": "/data",
+                            "vars.efs_host": "10.0.0.71",
+                            "vars.efs_mount_point": "/efs",
+                            "vars.hashed_notebook_password": "sha1:adc8323b5ab9:9865c35c8573307ec44b8eb98256e06dc57320ee"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.template"
+                },
+                "null_resource.export_rendered_template": {
+                    "type": "null_resource",
+                    "depends_on": [
+                        "data.template_file.instance_init"
+                    ],
+                    "primary": {
+                        "id": "4911137882179397550",
+                        "attributes": {
+                            "id": "4911137882179397550"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.null"
+                }
+            },
+            "depends_on": []
+        }
+    ]
+}
