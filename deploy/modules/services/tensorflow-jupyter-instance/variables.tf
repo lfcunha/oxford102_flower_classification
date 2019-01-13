@@ -14,8 +14,15 @@ variable "aws_amis" {
     description = "AMI to use"
     type = "map"
     default = {
-        us-east-1 = "ami-dff741a0"
+        us-east-1 = "ami-00fc7481b84be120b"
   }
+}
+
+# Elastic ip
+variable "ip" {
+  description = "elastic ip to use"
+  type = "string"
+  default = "54.146.243.156"
 }
 
 variable "efs_host" {
@@ -95,7 +102,9 @@ variable "instance_key_name" {
 variable "instance_type" {
   description = "instance type"
   type = "string"
-  default = "t2.medium"
+  #default =  "p3.2xlarge" #"p2.xlarge"  #p3.2xlarge  #"t2.large"
+  default =  "p2.xlarge"
+  #default =  "t2.large"
 }
 
 

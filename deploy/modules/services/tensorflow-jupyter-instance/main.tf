@@ -73,6 +73,15 @@ resource "aws_instance" "notebook" {
   }
 }
 
+data "aws_eip" "static_ip" {
+  public_ip = "${var.ip}"
+}
+
+resource "aws_eip_association" "static_ip" {
+  instance_id   = "${aws_instance.notebook.id}"
+  allocation_id = "${data.aws_eip.static_ip.id}"
+}
+
 # Attach Data Volume
 resource "aws_volume_attachment" "ebs_att" {
   device_name = "/dev/xvdf"

@@ -11,6 +11,8 @@ terraform plan
 
 terraform apply
 
+#terraform apply -var "instance_type=p2.xlarge
+
 terraform graph  # can visualize output with graphviz online
 
 terraform destroy
@@ -107,3 +109,40 @@ EFS: too slow. go with EBS
 |p2.xlarge      |         16   |  $0.9 per Hour    |   4            |    12:      |     
 |p2.xlarge      |         16   |  $0.9 per Hour    |   3            |    18:      |     
 |p2.xlarge      |         16   |  $0.9 per Hour    |   2.75         |    None     |     
+
+
+
+
+# image size
+
+
+# skip training of layers:
+(W x H = 128 x 128)
+for layer in model.layers[:17]:
+    print(layer.name)
+    layer.trainable = False
+    
+Total params: 30,485,541
+Trainable params: 19,900,389
+Non-trainable params: 10,585,152
+
+Epoch 1/50
+3768/3767 [==============================] - 737s 196ms/step - loss: 6.0805 - acc: 0.0330 - val_loss: 5.3597 - val_acc: 0.0895
+
+
+
+for layer in model.layers[:22]:
+    print(layer.name)
+    layer.trainable = False
+    
+Total params: 30,485,541
+Trainable params: 10,461,157
+Non-trainable params: 20,024,384
+
+Epoch 1/50
+3768/3767 [==============================] - 727s 193ms/step - loss: 6.4719 - acc: 0.0072 - val_loss: 6.1974 - val_acc: 0.0096
+
+
+
+### gridsearch
+https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/

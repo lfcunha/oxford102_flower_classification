@@ -33,6 +33,8 @@ sudo curl -L https://s3.amazonaws.com/lfcunha-notebook-cert/mycert.pem -o /etc/m
 sudo curl -L https://s3.amazonaws.com/lfcunha-notebook-cert/mykey.key -o /etc/mykey.key
 
 
+pip install --no-cache-dir -I  pillow
+
 # Jupyter notebook configuration file
 sudo cat <<EOT >> /home/ubuntu/.jupyter/jupyter_notebook_config.py
 #------------------------------------------------------------------------------
