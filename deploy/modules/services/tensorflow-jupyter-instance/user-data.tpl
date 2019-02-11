@@ -24,6 +24,14 @@ export PATH=/home/ubuntu/anaconda3/bin:$PATH
 sudo mount ${ebs_device_name} ${ebs_mount_point}
 sudo mount -a
 
+#sudo apt-get update
+#sudo apt-get install -y git binutils make
+#git clone https://github.com/aws/efs-utils
+#cd efs-utils
+#make deb
+#sudo apt-get install -y ./build/amazon-efs-utils*deb
+#sudo mount -t efs fs-e654ecae:/ /efs
+
 #sudo echo "mounting efs"
 #sudo mkdir /{efs_mount_point}
 #sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2  ${efs_host}:/ ${efs_mount_point}

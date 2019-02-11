@@ -2,12 +2,17 @@ from time import time
 
 from keras import applications
 from keras import optimizers
-from keras.callbacks import ModelCheckpoint, LearningRateScheduler, TensorBoard, EarlyStopping
+from keras.callbacks import ModelCheckpoint, LearningRateScheduler, TensorBoard, EarlyStopping, CSVLogger
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.models import Sequential
 from keras.preprocessing.image import ImageDataGenerator
 from keras.applications.nasnet import preprocess_input
+import numpy as np
+import pickle as pk
+
+seed = 42
+
 
 if __name__ == "__main__":
     def get_image_generator(image_augmentation=False, validation_split=0.2):

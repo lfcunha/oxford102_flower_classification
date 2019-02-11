@@ -28,41 +28,41 @@ if __name__ == "__main__":
 
     def get_model(optimizer=optimizers.SGD, verbose=False, n_categories=2):
 
-        model = Sequential()
+            model = Sequential()
 
-        #conv_layer1
-        model.add(Conv2D(32, (3, 3), input_shape=(150, 150, 3)))
-        model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
+            #conv_layer1
+            model.add(Conv2D(32, (3, 3), input_shape=(150, 150, 3)))
+            model.add(Activation('relu'))
+            model.add(MaxPooling2D(pool_size=(2, 2)))
 
-        # conv_layer2
-        model.add(Conv2D(32, (3, 3)))
-        model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
+            # conv_layer2
+            model.add(Conv2D(32, (3, 3)))
+            model.add(Activation('relu'))
+            model.add(MaxPooling2D(pool_size=(2, 2)))
 
-        # conv_layer3
-        model.add(Conv2D(64, (3, 3)))
-        model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
+            # conv_layer3
+            model.add(Conv2D(64, (3, 3)))
+            model.add(Activation('relu'))
+            model.add(MaxPooling2D(pool_size=(2, 2)))
 
-        model.add(Flatten())  # this converts our 3D feature maps to 1D feature vectors
-        model.add(Dense(256))
-        model.add(Activation('relu'))
-        model.add(Dropout(0.5))
+            model.add(Flatten())  # this converts our 3D feature maps to 1D feature vectors
+            model.add(Dense(256))
+            model.add(Activation('relu'))
+            model.add(Dropout(0.5))
 
-        if n_categories == 2:
-            model.add(Activation('sigmoid'))
-        else:
-            model.add(Dense(n_categories, activation="softmax"))
+            if n_categories == 2:
+                model.add(Activation('sigmoid'))
+            else:
+                model.add(Dense(n_categories, activation="softmax"))
 
-        model.compile(loss='categorical_crossentropy',
-                      optimizer=optimizer,
-                      metrics=['accuracy'])
+            model.compile(loss='categorical_crossentropy',
+                          optimizer=optimizer,
+                          metrics=['accuracy'])
 
-        if verbose:
-            model.summary()
+            if verbose:
+                model.summary()
 
-        return model
+            return model
 
 
     _model = get_model(optimizers.SGD(lr=0.0001, momentum=0.9), n_categories=102)
