@@ -1,41 +1,13 @@
-# Terraform syntax
-```bash
-
-terraform init # do this to install new providers
-
-terraform state list  # list resources
-
-terraform state show aws_instance.notebook  # describe a resource
-
-terraform plan
-
-terraform apply
-
-#terraform apply -var "instance_type=p2.xlarge
-
-terraform graph  # can visualize output with graphviz online
-
-terraform destroy
-```
-
-### Notes:
-Variables Must be one of "string", "list", or "map".
-
-If no default provided, it will prompt when running "terraform apply"
-
-A value can be passed in the command:
-```bash
-terraform plan -var server_port="8080"
-```
-
-Use output to print resource properties, instead of having to use "state show ..."; After, you can get it again with:
-```bash
-terraform output public_ip
-```
+# Capstone Project - Udacity's Machine Learning Engineer Nanodegree
 
 
+## Evaluation of Imagenet CNN Architectures for transfer learning classification of the Oxford102 Flower Dataset
 
-# Training
+
+### Hyperparameter optimization was performed for the imagenet architectures available in the Keras' applications models,  including all optimzers available in Keras
+
+
+## Transfer learning
 
 
 https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/6df7ae49-c61c-4bb2-a23e-6527e69209ec/lessons/e12c47b6-316e-4a0b-aae5-2f2c5fcd99f5/concepts/10489223-72fa-4393-848b-f882ba3cf7f9
@@ -94,55 +66,86 @@ Here is how to visualize this approach:
 
 
 
-### Training:
-data storage:
-EFS: too slow. go with EBS
 
-### Cost (time and money)
+## Results:
 
+A pdf report [pdf report](https://github.com/lfcunha/fgvcx_flower/blob/modeling_LC/report/casptone_project_v1.pdf)  can be found in the report folder. Notebooks for training are in the respective folder. Training was performed on AWS's P2 instances. The terraform code in the deploy folder is used to provision the infrastructure.
 
-| instance       |batch size      |price           |time/epoch (hr) | train layers|
-| ------------- |:-------------:| :---------------:| :-------------:|------------:|
-|p3.2xlarge     |         16   |  $3.06 per Hour   |   3            |    5:       | 
-|p3.2xlarge     |        160   |  $3.06 per Hour   |   3            |    5:       | 
-|p2.xlarge      |         16   |  $0.9 per Hour    |   6            |    5:       | 
-|p2.xlarge      |         16   |  $0.9 per Hour    |   4            |    12:      |     
-|p2.xlarge      |         16   |  $0.9 per Hour    |   3            |    18:      |     
-|p2.xlarge      |         16   |  $0.9 per Hour    |   2.75         |    None     |     
-
-
-
-
-# image size
-
-
-# skip training of layers:
-(W x H = 128 x 128)
-for layer in model.layers[:17]:
-    print(layer.name)
-    layer.trainable = False
-    
-Total params: 30,485,541
-Trainable params: 19,900,389
-Non-trainable params: 10,585,152
-
-Epoch 1/50
-3768/3767 [==============================] - 737s 196ms/step - loss: 6.0805 - acc: 0.0330 - val_loss: 5.3597 - val_acc: 0.0895
+Briefly, comparison of all the architectures and optimizers, and hyperparameter optimization resulted in a model:
+ 
+ - Densenet201 has highest performance
+ - Mobilenet (including v2) were the fastest to train, with slightly worse accuracy (~2%) than Densenet201 (2x faster)
+ - VGG, resnet, espection were slower to train (3-5x) and less accurate
+ - Optimizers were less important than architecture, but CNN stands out.
+ - 93% validation  accuracy
+ - 79% test accuracy
+ - Batch size is not too important (128 is a good choice)
+ - step size to see only half the data per epoch doubles training speed while maintaining performance
+ 
+ 
+ - 
+  Validarion accuracies of several CNN architecture / optimizer combinations
+  ![accuracies](report/images/validation accuracies.png)
+ 
+ 
+ - 
+ Training of a Densenet201 model with Adam optimizer
+ ![densenet_adam_accuracy](report/images/densenet_adam_accuracy.png)
+ ![densenet_adam_loss](report/images/densenet_adam_loss.png)
+ 
+ 
+ Class prediction: 
+ 
+ ![predictions](report/images/predictions.png)
+   Labels are actual/predicted class
 
 
 
-for layer in model.layers[:22]:
-    print(layer.name)
-    layer.trainable = False
-    
-Total params: 30,485,541
-Trainable params: 10,461,157
-Non-trainable params: 20,024,384
+## Terraform deployment of training infrastruture
 
-Epoch 1/50
-3768/3767 [==============================] - 727s 193ms/step - loss: 6.4719 - acc: 0.0072 - val_loss: 6.1974 - val_acc: 0.0096
+Use terraform to easily provision / destroy infrastructure for training. Data is persisted in a EBS volume that does not get
+destroyed, and is mounted on each ec2 instance in initialization. The instance type can be configured in the variables file
+or passed in the command line (see below)
 
 
 
-### gridsearch
-https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/
+- init project
+
+```bash
+terraform init # do this to install new providers
+```
+
+- list resources
+```bash
+terraform state list  # list resources
+```
+
+- describe a resource
+
+```bash
+terraform state show aws_instance.notebook  # describe a resource
+```
+
+- deploy
+```bash
+terraform plan
+terraform apply
+#terraform apply -var "instance_type=p2.xlarge
+```
+
+- get variable value
+```bash
+terraform output public_ip
+```
+
+- visualize output with graphviz online
+```bash
+terraform graph  
+```
+- Destroy infrastructure
+```bash
+terraform destroy
+
+```
+
+
