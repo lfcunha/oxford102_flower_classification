@@ -16,7 +16,7 @@ Flower classification, as well as of other living-organisms, is an important tas
 ### Dataset: 
 
 [Oxfoard102](http://www.robots.ox.ac.uk/~vgg/data/flowers/102/):
-A Flower image dataset of 102 common flowers found in the UK
+A Flower image dataset of 102 common flower classes found in the UK
 
 
 #### Metrics
