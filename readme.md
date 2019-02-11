@@ -67,7 +67,8 @@ Here is how to visualize this approach:
 
 ### Dataset: 
 
-[Oxfoard102](http://www.robots.ox.ac.uk/~vgg/data/flowers/102/)
+[Oxfoard102](http://www.robots.ox.ac.uk/~vgg/data/flowers/102/):
+A Flower image dataset of 102 common flowers found in the UK
 
 
 ## Results:
