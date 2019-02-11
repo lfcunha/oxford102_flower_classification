@@ -13,6 +13,12 @@
 Flower classification, as well as of other living-organisms, is an important task used both for scientific purposes (taxonomy in research or applied sciences, such as agronomy) and leisure. It has traditionally been cumbersome, requiring specific and specialized knowledge, as well as careful and time consuming analysis of anatomical characteristics. Not long ago this knowledge was kept in books, either to be brought to the field, of to be used in the lab, this requiring field trips to collect specimens. More recently, a much lighter version of this knowledge could be more conveniently transported to the field in a computer, or even on a smartphone. However, the process still remained the same as centuries ago, in which a person had to compare physical characteristics of the subject with the body of knowledge. This process can be greatly improved by automation, delegating the classification task to a computer.  Image classification is a common and important application of Machine Learning (ML). It is used on a wide range of applications, from individuals identification for security proposes, to identifying road signs in the live video feed of self-driving cars. This project develops a ML model to classify flowers from their images, while evaluating performance  and cost (time and money) tradeoffs. 
 
 
+### Dataset: 
+
+[Oxfoard102](http://www.robots.ox.ac.uk/~vgg/data/flowers/102/):
+A Flower image dataset of 102 common flowers found in the UK
+
+
 #### Metrics
 
 The evaluation metric used in this project is the categorical accuracy, which reflects the mean accuracy rate across all predictions (a single prediction being the class with the highest probability out of the 102 classes).
@@ -75,11 +81,6 @@ Because the original training set and the new data set share higher level featur
 
 Here is how to visualize this approach:
 
-
-### Dataset: 
-
-[Oxfoard102](http://www.robots.ox.ac.uk/~vgg/data/flowers/102/):
-A Flower image dataset of 102 common flowers found in the UK
 
 
 ## Results:
