@@ -7,7 +7,18 @@
 ### Hyperparameter optimization was performed for the imagenet architectures available in the Keras' applications models,  including all optimzers available in Keras
 
 
-## Transfer learning
+
+### Project Overview
+
+Flower classification, as well as of other living-organisms, is an important task used both for scientific purposes (taxonomy in research or applied sciences, such as agronomy) and leisure. It has traditionally been cumbersome, requiring specific and specialized knowledge, as well as careful and time consuming analysis of anatomical characteristics. Not long ago this knowledge was kept in books, either to be brought to the field, of to be used in the lab, this requiring field trips to collect specimens. More recently, a much lighter version of this knowledge could be more conveniently transported to the field in a computer, or even on a smartphone. However, the process still remained the same as centuries ago, in which a person had to compare physical characteristics of the subject with the body of knowledge. This process can be greatly improved by automation, delegating the classification task to a computer.  Image classification is a common and important application of Machine Learning (ML). It is used on a wide range of applications, from individuals identification for security proposes, to identifying road signs in the live video feed of self-driving cars. This project develops a ML model to classify flowers from their images, while evaluating performance  and cost (time and money) tradeoffs. 
+
+
+#### Metrics
+
+The evaluation metric used in this project is the categorical accuracy, which reflects the mean accuracy rate across all predictions (a single prediction being the class with the highest probability out of the 102 classes).
+
+
+### Methodology: Transfer learning
 
 
 https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/6df7ae49-c61c-4bb2-a23e-6527e69209ec/lessons/e12c47b6-316e-4a0b-aae5-2f2c5fcd99f5/concepts/10489223-72fa-4393-848b-f882ba3cf7f9
