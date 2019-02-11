@@ -65,11 +65,14 @@ Because the original training set and the new data set share higher level featur
 Here is how to visualize this approach:
 
 
+### Dataset: 
+
+[Oxfoard102](http://www.robots.ox.ac.uk/~vgg/data/flowers/102/)
 
 
 ## Results:
 
-A pdf report [pdf report](https://github.com/lfcunha/fgvcx_flower/blob/modeling_LC/report/casptone_project_v1.pdf)  can be found in the report folder. Notebooks for training are in the respective folder. Training was performed on AWS's P2 instances. The terraform code in the deploy folder is used to provision the infrastructure.
+A pdf report [pdf report](https://github.com/lfcunha/fgvcx_flower/blob/modeling_LC/report/casptone_project_v1.pdf)  can be found in the report folder. The training [Notebooks](https://github.com/lfcunha/fgvcx_flower/tree/modeling_LC/notebooks) are found the respective folder. Training was performed on AWS's P2 instances. The terraform code in the deploy folder is used to provision the infrastructure.
 
 Briefly, comparison of all the architectures and optimizers, and hyperparameter optimization resulted in a model:
  
@@ -83,12 +86,12 @@ Briefly, comparison of all the architectures and optimizers, and hyperparameter 
  - step size to see only half the data per epoch doubles training speed while maintaining performance
  
  
- - 
+ 
   Validarion accuracies of several CNN architecture / optimizer combinations
   ![accuracies](report/images/validation accuracies.png)
  
  
- - 
+  
  Training of a Densenet201 model with Adam optimizer
  ![densenet_adam_accuracy](report/images/densenet_adam_accuracy.png)
  ![densenet_adam_loss](report/images/densenet_adam_loss.png)
