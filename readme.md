@@ -26,66 +26,22 @@ The evaluation metric used in this project is the categorical accuracy, which re
 
 ### Methodology: Transfer learning
 
+Transfer Learning is a technique in which a model developed for one particular problem us used for another, more or less similar problem. This is possible because the different layers of a CNN recognize different levels of patterns granularity in the image. For instance, a model trained to recognize cats will consist of early layers that recognize edges, intermediate layers that might recognize more complex shapes, and deeper layers that might recognize cat features such as ears. Thus one could use the network almost as is to train a different dataset of cat images, possible of a different variety of cats, or retrain the top layers to recognize dog features. This patterns can reuse the early layers without modification since simple features like edges will be common to any type of image. Training of only the top layers will be much faster than training the whole network.  When using transfer learning there are four main cases:
+1.	The new dataset is small (a few thousand) and similar to original training data
+2.	The new dataset is small but different from original training 
+3.	The new dataset is large (millions) and similar to original training data
+4.	The new dataset is large and different from original training data
 
-https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/6df7ae49-c61c-4bb2-a23e-6527e69209ec/lessons/e12c47b6-316e-4a0b-aae5-2f2c5fcd99f5/concepts/10489223-72fa-4393-848b-f882ba3cf7f9
+The guidelines to apply transfer learning to these 4 scenarios suggest that the first only training of the bottleneck layer (the custom layers applied to the top of the ConvNet layers of the original model) . The second case, of a small dataset of different nature, should require discarding the top (higher level features) layer and train a bottleneck (fully connected) layer. The third case (large dataset/similar data) should require only replacing and training the bottleneck layer (fine tune). In the last case (large dataset, different data) should involve retraining the whole network. 
 
+For this project all the convolutional layers were be preserved and bottleneck layer will be replaced and retrained (even though the dataset is relatively small). Fine tuning will re-train the weights of the top convolutional layer after the training of bottleneck has been performed. This will use a very small learning rate since the model weights are already close to ideal.
 
-The Four Main Cases When Using Transfer Learning
-Transfer learning involves taking a pre-trained neural network and adapting the neural network to a new, different data set.
-
-Depending on both:
-
-the size of the new data set, and
-the similarity of the new data set to the original data set
-the approach for using transfer learning will be different. There are four main cases:
-
-new data set is small, new data is similar to original training data
-new data set is small, new data is different from original training data
-new data set is large, new data is similar to original training data
-new data set is large, new data is different from original training data
-
-Four Cases When Using Transfer Learning
-
-A large data set might have one million images. A small data could have two-thousand images. The dividing line between a large data set and small data set is somewhat subjective. Overfitting is a concern when using transfer learning with a small data set.
-
-Images of dogs and images of wolves would be considered similar; the images would share common characteristics. A data set of flower images would be different from a data set of dog images.
-
-Each of the four transfer learning cases has its own approach. In the following sections, we will look at each case one by one.
-
-
-
-We have a large, but different dataset. We're goint to treat it as Case 3, where the dataset is similar. Meaning,
-we're going to replace the last convolutional data and initiate its weights randomly. The rest of layers will bi iniated with the network weights
-
-
-## Case 4: Large Data Set, Different Data
-If the new data set is large and different from the original training data:
-
-remove the last fully connected layer and replace with a layer matching the number of classes in the new data set
-retrain the network from scratch with randomly initialized weights
-alternatively, you could just use the same strategy as the "large and similar" data case
-Even though the data set is different from the training data, initializing the weights from the pre-trained network might make training faster. So this case is exactly the same as the case with a large, similar data set.
-
-If using the pre-trained network as a starting point does not produce a successful model, another option is to randomly initialize the convolutional neural network weights and train the network from scratch.
-
-##Case 3: Large Data Set, Similar Data:
-If the new data set is large and similar to the original training data:
-
-remove the last fully connected layer and replace with a layer matching the number of classes in the new data set
-randomly initialize the weights in the new fully connected layer
-initialize the rest of the weights using the pre-trained weights
-re-train the entire neural network
-Overfitting is not as much of a concern when training on a large data set; therefore, you can re-train all of the weights.
-
-Because the original training set and the new data set share higher level features, the entire neural network is used as well.
-
-Here is how to visualize this approach:
 
 
 
 ## Results:
 
-A pdf report [pdf report](https://github.com/lfcunha/fgvcx_flower/blob/modeling_LC/report/casptone_project_v1.pdf)  can be found in the report folder. The training [Notebooks](https://github.com/lfcunha/fgvcx_flower/tree/modeling_LC/notebooks) are found the respective folder. Training was performed on AWS's P2 instances. The terraform code in the deploy folder is used to provision the infrastructure.
+A pdf report [pdf report](https://github.com/lfcunha/fgvcx_flower/blob/modeling_LC/report/capstone_project.pdf)  can be found in the report folder. The training [Notebooks](https://github.com/lfcunha/fgvcx_flower/tree/modeling_LC/notebooks) are found the respective folder. Training was performed on AWS's P2 instances. The terraform code in the deploy folder is used to provision the infrastructure.
 
 Briefly, comparison of all the architectures and optimizers, and hyperparameter optimization resulted in a model:
  
