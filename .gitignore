@@ -9,3 +9,4 @@ data/
 user_data_output.*
 user_data_init_script_output.*
 .DS_Store
+report/~$pstone_project.docx
