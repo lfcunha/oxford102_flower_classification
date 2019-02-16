@@ -1,0 +1,1 @@
+This Slides were taken from Udacity's ML nanodegree lessons
