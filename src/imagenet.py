@@ -178,9 +178,9 @@ if __name__ == "__main__":
 
 
 
-    model = applications.inception_v3.InceptionV3(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, 3))
-    #from keras.models import load_model
-    #model = load_model("/data/vgg16_fungi_all_p2.h5")
+model = applications.inception_v3.InceptionV3(weights = "imagenet", include_top=False, input_shape = (img_width, img_height, 3))
+#from keras.models import load_model
+#model = load_model("/data/vgg16_fungi_all_p2.h5")
 
 """
 Train for a max of 24 hours
