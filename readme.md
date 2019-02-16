@@ -41,7 +41,7 @@ For this project all the convolutional layers were be preserved and bottleneck l
 
 ## Results:
 
-A pdf report [pdf report](https://github.com/lfcunha/fgvcx_flower/blob/modeling_LC/report/capstone_project.pdf)  can be found in the report folder. The training [Notebooks](https://github.com/lfcunha/fgvcx_flower/tree/modeling_LC/notebooks) are found the respective folder. Training was performed on AWS's P2 instances. The terraform code in the deploy folder is used to provision the infrastructure.
+A pdf report [pdf report](https://github.com/lfcunha/fgvcx_flower/blob/master/report/capstone_project.pdf)  can be found in the report folder. The training [Notebooks](https://github.com/lfcunha/fgvcx_flower/tree/master/notebooks) are found the respective folder. Training was performed on AWS's P2 instances. The terraform code in the deploy folder is used to provision the infrastructure.
 
 Briefly, comparison of all the architectures and optimizers, and hyperparameter optimization resulted in a model:
  
